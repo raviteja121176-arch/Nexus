@@ -46,6 +46,9 @@ body{background:radial-gradient(ellipse at 75% -10%,#C9F0DC 0,transparent 44%),v
 .field input:focus,.field select:focus,.field textarea:focus{border-color:#168765AA;box-shadow:0 0 0 3px #8DE0B733}
 .btn{background:linear-gradient(100deg,#8DE0B7,#168765);color:#FFFFFF;box-shadow:0 5px 20px #16876526}
 .btn.secondary{background:#FFFFFF;color:#315645;border:1px solid #C9E5D7}
+.dispatch-btn{border:0;border-radius:10px;background:linear-gradient(100deg,#8DE0B7,#168765);color:#FFFFFF;padding:8px 12px;font-weight:800;font-size:11px;box-shadow:0 5px 20px #16876526;transition:.2s}
+.dispatch-btn:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-1px)}
+.dispatch-btn:disabled{opacity:.7;cursor:default}
 .sustain-item{background:#FFFFFF;border-color:#C9E5D7}
 .sustain-item strong{color:#17352B}.sustain-item small{color:#168765}
 footer{color:#698779;border-top-color:#C9E5D7}
@@ -77,12 +80,11 @@ footer{color:#698779;border-top-color:#C9E5D7}
 <div class="right-stack"><article class="panel"><div class="panel-head"><div><h3>City alerts</h3><p>Priority updates from the demo network</p></div><span class="pill">3 updates</span></div><div class="alert"><div class="alert-icon">⌁</div><div><strong>Traffic building on East Corridor</strong><p>Flow is slower than the usual baseline. Consider alternate routes.</p><time>2 min ago · Traffic</time></div></div><div class="alert"><div class="alert-icon">◉</div><div><strong>Water network operating normally</strong><p>Pressure readings are inside the expected range.</p><time>6 min ago · Utilities</time></div></div><div class="alert"><div class="alert-icon red">!</div><div><strong>Incident response ready</strong><p>Demo control room is standing by for test alerts.</p><time>9 min ago · Safety</time></div></div></article>
 <article class="panel" id="safety"><div class="sos-panel"><h3>Emergency response</h3><p>Send a simulated alert to the Nexus demo control centre.</p><div class="sos-grid"><button class="sos-btn" data-sos="Medical"><span>✚</span>Medical</button><button class="sos-btn" data-sos="Fire"><span>♨</span>Fire</button><button class="sos-btn" data-sos="Police"><span>⚑</span>Police</button></div></div></article></div></div></section>
 <div class="bottom-grid"><section class="panel"><div class="panel-head"><div><h3>Response control queue</h3><p>Simulated dispatch workflow for presentation</p></div><button class="filter" id="clearQueue">Clear demo queue</button></div><div style="overflow-x:auto"><table class="table"><thead><tr><th>Case ID</th><th>Type</th><th>Zone</th><th>Status</th></tr></thead><tbody id="queue"><tr id="empty-row"><td colspan="4" style="color:var(--muted);text-align:center;padding:24px">No demo alerts yet. Trigger an SOS to test the workflow.</td></tr></tbody></table></div></section>
-<section class="panel" id="civic"><div class="panel-head"><div><h3>Civic issue reporting</h3><p>Submit a local demo report</p></div><span class="pill">Citizen portal</span></div><form class="report-form" id="report-form"><div class="field"><label for="issue">Issue type</label><select id="issue" required><option value="Road damage">Road damage</option><option value="Street lighting">Street lighting</option><option value="Waste collection">Waste collection</option><option value="Water leakage">Water leakage</option><option value="Other">Other</option></select></div><div class="field"><label for="zone">Area / zone</label><input id="zone" placeholder="e.g. Central Hub" required maxlength="70"></div><div class="field"><label for="details">Description</label><textarea id="details" placeholder="Describe the issue briefly…" required maxlength="350"></textarea></div><button class="btn" type="submit">Submit demo report ↗</button><p style="font-size:10px;color:var(--muted);margin:0">Reports stay in this browser session; they are not sent to a municipality.</p></form></section></div>
+<section class="panel" id="civic"><div class="panel-head"><div><h3>Civic issue reporting</h3><p>Submit a local demo report</p></div><span class="pill">Citizen portal</span></div><form class="report-form" id="report-form"><div class="field"><label for="issue">Issue type</label><select id="issue" required><option value="Road damage">Road damage</option><option value="Street lighting">Street lighting</option><option value="Waste collection">Waste collection</option><option value="Water leakage">Water leakage</option><option value="Fire">Fire</option><option value="Other">Other</option></select></div><div class="field"><label for="zone">Area / zone</label><input id="zone" placeholder="e.g. Central Hub" required maxlength="70"></div><div class="field"><label for="details">Description</label><textarea id="details" placeholder="Describe the issue briefly…" required maxlength="350"></textarea></div><button class="btn" type="submit">Submit demo report ↗</button><p style="font-size:10px;color:var(--muted);margin:0">Reports stay in this browser session; they are not sent to a municipality.</p></form></section></div>
 <section class="panel" style="margin-top:15px"><div class="panel-head"><div><h3>Sustainability snapshot</h3><p>Sample indicators for the connected city concept</p></div><span class="pill">Illustrative metrics</span></div><div class="sustain"><div class="sustain-item"><span>Renewable energy share</span><strong>38%</strong><small>↑ +4.2% this quarter</small></div><div class="sustain-item"><span>Waste collection coverage</span><strong>92%</strong><small>↑ +2.8% this quarter</small></div><div class="sustain-item"><span>Streetlight efficiency</span><strong>86%</strong><small>↑ +6.1% this quarter</small></div></div></section>
 <footer><span>© 2026 Nexus · Smart City Intelligence concept</span><span>Prototype interface · Simulated metrics · No live municipal integrations</span><span>Designed for connected, responsive cities.</span></footer>
 </main>
-<div class="toast" id="toast" role="status"></div>
-<div class="modal-bg" id="modal-bg"><div class="modal"><div class="eyebrow" style="color:var(--red)">Confirm demo alert</div><h2 id="modal-title">Send SOS?</h2><p id="modal-copy">This will create a simulated alert in the local demo queue. It will not contact real emergency services.</p><div class="modal-actions"><button class="btn secondary" id="cancel-sos">Cancel</button><button class="btn" id="confirm-sos" style="background:linear-gradient(100deg,#ff7087,#ffc0a0)">Confirm demo SOS</button></div></div></div>
+<div class="toast" id="toast" role="status"></div><div class="modal-bg" id="modal-bg"><div class="modal"><div class="eyebrow" style="color:var(--red)">Confirm demo alert</div><h2 id="modal-title">Send SOS?</h2><p id="modal-copy">This will create a simulated alert in the local demo queue. It will not contact real emergency services.</p><div class="modal-actions"><button class="btn secondary" id="cancel-sos">Cancel</button><button class="btn" id="confirm-sos" style="background:linear-gradient(100deg,#ff7087,#ffc0a0)">Confirm demo SOS</button></div></div></div>
 <script>
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),3400)}
@@ -91,40 +93,41 @@ $$('.mini-line').forEach(el=>{el.innerHTML=el.dataset.bars.split(',').map(n=>`<i
 function refreshMetrics(){const values={aqi:()=>Math.max(22,Math.min(78,Number($('#aqi').textContent)+Math.round(Math.random()*6-3))),traffic:()=>Math.max(45,Math.min(98,Number($('#traffic').textContent)+Math.round(Math.random()*8-4))),water:()=>Math.max(3.1,Math.min(4.5,Number($('#water').textContent)+(Math.random()*.2-.1))).toFixed(1),energy:()=>Math.max(48,Math.min(84,Number($('#energy').textContent)+Math.round(Math.random()*6-3)))};Object.entries(values).forEach(([id,fn])=>$('#'+id).textContent=fn());$$('.mini-line').forEach(el=>{[...el.children].forEach(bar=>bar.style.height=(15+Math.random()*68)+'%')});$('#last-refresh').textContent='Just now'}setInterval(refreshMetrics,15000);
 $$('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{$$('[data-filter]').forEach(b=>b.classList.toggle('active',b===btn));$$('.map-point').forEach(p=>p.classList.toggle('hidden',btn.dataset.filter!=='all'&&p.dataset.kind!==btn.dataset.filter))}));
 
-let selectedZone='Central Hub';
-let pendingType='';
-let pendingZone='';
+let selectedZone = 'Central Hub';
+let pendingType = '';
+let pendingZone = '';
 
-$$('.map-point').forEach(point=>{
-  point.addEventListener('click',()=>{
-    selectedZone=point.dataset.name||'Central Hub';
-    $('#zone').value=selectedZone;
-    $$('.map-point').forEach(item=>item.classList.toggle('selected',item===point));
-    toast('Selected location: '+selectedZone);
+$$('.map-point').forEach(point => {
+  point.addEventListener('click', () => {
+    selectedZone = point.dataset.name || 'Central Hub';
+    $('#zone').value = selectedZone;
+    $$('.map-point').forEach(item => item.classList.toggle('selected', item === point));
+    toast('Selected location: ' + selectedZone);
   });
 });
 
-$$('[data-sos]').forEach(button=>{
-  button.addEventListener('click',()=>{
-    pendingType=button.dataset.sos;
-    pendingZone=selectedZone;
-    $('#modal-title').textContent='Confirm '+pendingType+' emergency';
-    $('#modal-copy').textContent='Location: '+pendingZone+
-      '. Create a simulated '+pendingType.toLowerCase()+
+$$('[data-sos]').forEach(button => {
+  button.addEventListener('click', () => {
+    pendingType = button.dataset.sos;
+    if (pendingType === 'Fire') $('#issue').value = 'Fire';
+    pendingZone = selectedZone;
+    $('#modal-title').textContent = 'Confirm ' + pendingType + ' emergency';
+    $('#modal-copy').textContent = 'Location: ' + pendingZone +
+      '. Create a simulated ' + pendingType.toLowerCase() +
       ' emergency alert for this zone?';
     $('#modal-bg').classList.add('open');
   });
 });
 
-function closeSosModal(){
+function closeSosModal() {
   $('#modal-bg').classList.remove('open');
 }
-$('#cancel-sos').addEventListener('click',closeSosModal);
-$('#modal-bg').addEventListener('click',event=>{
-  if(event.target===$('#modal-bg'))closeSosModal();
+$('#cancel-sos').addEventListener('click', closeSosModal);
+$('#modal-bg').addEventListener('click', event => {
+  if (event.target === $('#modal-bg')) closeSosModal();
 });
-document.addEventListener('keydown',event=>{
-  if(event.key==='Escape'&&$('#modal-bg').classList.contains('open'))closeSosModal();
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && $('#modal-bg').classList.contains('open')) closeSosModal();
 });
 
 $('#confirm-sos').addEventListener('click',()=>{
@@ -142,10 +145,10 @@ $('#confirm-sos').addEventListener('click',()=>{
   const emergency=pendingType.toLowerCase();
 
   const service=emergency==='medical'
-    ?'Ambulance'
-    :emergency==='fire'
-      ?'Fire engine'
-      :'Police unit';
+    ? 'Ambulance'
+    : emergency==='fire'
+      ? 'Fire engine'
+      : 'Police unit';
 
   tr.innerHTML=`
     <td>${id}</td>
@@ -153,10 +156,13 @@ $('#confirm-sos').addEventListener('click',()=>{
     <td>${zone}</td>
     <td>
       <span class="status-tag pending">Demo queued</span>
-      <button type="button" class="dispatch-btn">Dispatch ${service}</button>
+      <button type="button" class="dispatch-btn">
+        Dispatch ${service}
+      </button>
     </td>`;
 
   const dispatchButton=tr.querySelector('.dispatch-btn');
+
   dispatchButton.addEventListener('click',()=>{
     const status=tr.querySelector('.status-tag');
     status.textContent='Demo dispatched';
@@ -175,20 +181,8 @@ $('#confirm-sos').addEventListener('click',()=>{
   tr.scrollIntoView({behavior:'smooth',block:'nearest'});
 });
 
-$('#clearQueue').addEventListener('click',()=>{
-  $('#queue').innerHTML='<tr id="empty-row"><td colspan="4" style="color:var(--muted);text-align:center;padding:24px">No demo alerts yet. Trigger an SOS to test the workflow.</td></tr>';
-  toast('Demo queue cleared.');
-});
-
-$('#report-form').addEventListener('submit',event=>{
-  event.preventDefault();
-  const issue=$('#issue').value;
-  const zone=$('#zone').value.trim();
-  const details=$('#details').value.trim();
-  if(!zone||!details)return;
-  toast('Demo report recorded: '+issue+' · '+zone+'. It was not sent outside this browser.');
-  event.target.reset();
-});
+$('#clearQueue').addEventListener('click',()=>{$('#queue').innerHTML='<tr id="empty-row"><td colspan="4" style="color:var(--muted);text-align:center;padding:24px">No demo alerts yet. Trigger an SOS to test the workflow.</td></tr>';toast('Demo queue cleared.')});
+$('#report-form').addEventListener('submit',e=>{e.preventDefault();const issue=$('#issue').value,zone=$('#zone').value.trim(),details=$('#details').value.trim();if(!zone||!details)return;toast('Demo report recorded: '+issue+' · '+zone+'. It was not sent outside this browser.');e.target.reset()});
 </script>
 </body>
 </html>

@@ -92,7 +92,6 @@ function tick(){const d=new Date();$('#clock').textContent=d.toLocaleTimeString(
 $$('.mini-line').forEach(el=>{el.innerHTML=el.dataset.bars.split(',').map(n=>`<i style="height:${n}%"></i>`).join('')});
 function refreshMetrics(){const values={aqi:()=>Math.max(22,Math.min(78,Number($('#aqi').textContent)+Math.round(Math.random()*6-3))),traffic:()=>Math.max(45,Math.min(98,Number($('#traffic').textContent)+Math.round(Math.random()*8-4))),water:()=>Math.max(3.1,Math.min(4.5,Number($('#water').textContent)+(Math.random()*.2-.1))).toFixed(1),energy:()=>Math.max(48,Math.min(84,Number($('#energy').textContent)+Math.round(Math.random()*6-3)))};Object.entries(values).forEach(([id,fn])=>$('#'+id).textContent=fn());$$('.mini-line').forEach(el=>{[...el.children].forEach(bar=>bar.style.height=(15+Math.random()*68)+'%')});$('#last-refresh').textContent='Just now'}setInterval(refreshMetrics,15000);
 $$('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{$$('[data-filter]').forEach(b=>b.classList.toggle('active',b===btn));$$('.map-point').forEach(p=>p.classList.toggle('hidden',btn.dataset.filter!=='all'&&p.dataset.kind!==btn.dataset.filter))}));
-
 let selectedZone = 'Central Hub';
 let pendingType = '';
 let pendingZone = '';
@@ -156,7 +155,7 @@ $('#confirm-sos').addEventListener('click',()=>{
     <td>${zone}</td>
     <td>
       <span class="status-tag pending">Demo queued</span>
-      <button type="button" class="dispatch-btn">
+      <button type="button" class="btn dispatch-btn">
         Dispatch ${service}
       </button>
     </td>`;
